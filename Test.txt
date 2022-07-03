@@ -1,0 +1,38 @@
+# This Program is written to test our datapath.
+# If it works correctly, it should add 12 to 
+# register $s0(r16) every 15 cycles.
+# 
+# This program is preloaded in the instruction memory.
+# 
+# First, you need to manually set the following registers:
+# $t0(r8) = 13 = 0xd 
+# $t1(r9) = 25 = 0x19
+# $t2(r10) = 12 = 0xc
+
+
+
+
+START:  # START = 0x000000
+	NOP # 0x00000000
+	add $t3, $t1, $t0  # 0x01285820
+	sub $t4, $t1, $t0  # 0x01286022
+	and $t5, $t1, $t0  # 0x01286824
+	or $t6, $t1, $t0  # 0x01287025
+
+	sw $t3, 0x0($zero)  # 0xac0b0000
+	sw $t4, 0x1($zero)  # 0xac0c0001
+	sw $t5, 0x2($zero)  # 0xac0d0002
+	sw $t6, 0x3($zero)  # 0xac0e0003
+
+	lw $t7, 0x1($zero)  # 0x8c0f0001
+	beq $t7, $t4, 0x1f  # 0x11ec001f
+
+
+LABEL2:  # LABEL2 = 0x19
+	j START  # 0x08000000
+
+
+LABEL1:  # LABEL1 = 0x29
+	NOP # 0x00000000
+	add $s0, $t7, $s0  # 0x01f08020
+	j LABEL2  # 0x08000019
