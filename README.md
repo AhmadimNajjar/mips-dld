@@ -35,5 +35,3 @@ Please note a few things:
 
 3. All the registers are accessable and can be written on (for simple debugging and testing),
    but the $zero register is set to always be 0.
-
-4. To test our implementation, we have included "Test.txt".
